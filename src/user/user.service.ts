@@ -17,9 +17,9 @@ export class UserService {
 
     if (!user || !(await user.comparePassword(password))) {
       throw new HttpException('Invalid username or password', HttpStatus.BAD_REQUEST);
-    } else {
-      return 'git';
     }
+
+    return user.toResponseObject();
   }
 
   async register(data: UserDTO): Promise<UserRO> {
