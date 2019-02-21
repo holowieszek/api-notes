@@ -13,10 +13,7 @@ import { APP_GUARD } from '@nestjs/core';
   ],
   providers: [
     NoteService,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard
-    }
+    AuthGuard
   ],
   controllers: [NoteController]
 })
