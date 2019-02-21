@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NoteEntity } from './note.entity';
 import { Repository } from 'typeorm';
@@ -15,10 +15,19 @@ export class NoteService {
   ) {}
     
   async showAll(userId: string) {
-    const note = await this.noteRepository.find({ where: { author: userId }});
-    return note;
-    
+    return await this.noteRepository.find({ where: { author: userId }});
   }
+
+  async showById(userId: string, noteId: string) {
+    const note = await this.noteRepository.findOne({ where: { author: userId, id: noteId }});
+
+    if (!note) {
+      throw new HttpException('Note not found!', HttpStatus.BAD_REQUEST);
+    }
+
+    return note;
+  }
+
   async create(userId: string, data: NoteDTO) {
     const user = await this.userRepository.findOne({ where: { id: userId }});
     const note = await this.noteRepository.create({ ...data, author: user });
