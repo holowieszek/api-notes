@@ -36,6 +36,19 @@ export class NoteService {
     return note.toResponseObject();
   }
 
+  async update(userId: string, noteId: string, data: Partial<NoteDTO>) {
+    let note = await this.noteRepository.findOne({ where: { author: userId, id: noteId }});
+
+    if (!note) {
+      throw new HttpException('Note not found!', HttpStatus.BAD_REQUEST);
+    }
+
+    await this.noteRepository.update(noteId, data);
+    note = await this.noteRepository.findOne({ where: { author: userId, id: noteId }});
+
+    return note;
+  }
+
   async destroy(userId: string, noteId: string) {
     const note = await this.noteRepository.findOne({ where: { author: userId, id: noteId }});
 
