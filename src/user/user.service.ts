@@ -2,7 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
-import { UserDTO } from './user.dto';
+import { UserDTO, UserRO } from './user.dto';
 
 @Injectable()
 export class UserService {
@@ -11,7 +11,7 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>
   ) {}
 
-  async register(data: UserDTO): Promise<any> {
+  async register(data: UserDTO): Promise<UserRO> {
     const { username } = data;
     let user = await this.userRepository.findOne({ where: { username }});
 
