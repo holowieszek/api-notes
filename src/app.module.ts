@@ -18,7 +18,6 @@ import { AuthGuard } from './common/auth.guard';
   controllers: [AppController],
   providers: [
     AppService,
-    AuthGuard,
     {
       provide: APP_FILTER,
       useClass: HttpErrorFilter
