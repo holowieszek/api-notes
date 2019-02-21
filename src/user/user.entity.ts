@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert } from 'typeorm';
 import { UserRO } from './user.dto';
+import * as bcrypt from 'bcryptjs';
 
 @Entity('users')
 export class UserEntity {
@@ -15,6 +16,11 @@ export class UserEntity {
   @Column('text')
   password: string;
 
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
+  
   toResponseObject(): UserRO {
     const { id, created, username } = this;
     const responseObject = { id, created, username };
