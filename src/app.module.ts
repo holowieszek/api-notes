@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpErrorFilter } from './common/http-error.fitler';
 import { NoteModule } from './note/note.module';
+import { AuthGuard } from './common/auth.guard';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { NoteModule } from './note/note.module';
   controllers: [AppController],
   providers: [
     AppService,
+    AuthGuard,
     {
       provide: APP_FILTER,
       useClass: HttpErrorFilter
