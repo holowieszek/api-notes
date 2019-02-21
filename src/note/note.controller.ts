@@ -1,6 +1,8 @@
 import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { AuthGuard } from 'src/common/auth.guard';
+import { NoteDTO } from './note.dto';
+import { User } from 'src/user/user.decorator';
 
 @Controller('api/notes')
 export class NoteController {
@@ -10,7 +12,8 @@ export class NoteController {
   
   @Post('create')
   @UseGuards(AuthGuard)
-  create(@Body() data) {
-    return this.noteService.create(data);
+  create(@User('id') user, @Body() data: NoteDTO) {
+    console.log(user);
+    return this.noteService.create(user, data);
   }
 }
