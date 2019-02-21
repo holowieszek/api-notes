@@ -13,4 +13,11 @@ export class UserEntity {
 
   @Column('text')
   password: string;
+
+  toResponseObject() {
+    const { id, created, username } = this;
+    const responseObject = { id, created, username };
+
+    return responseObject;
+  }
 }
