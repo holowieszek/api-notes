@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column } from 'typeorm';
+import { UserRO } from './user.dto';
 
 @Entity('users')
 export class UserEntity {
@@ -14,7 +15,7 @@ export class UserEntity {
   @Column('text')
   password: string;
 
-  toResponseObject() {
+  toResponseObject(): UserRO {
     const { id, created, username } = this;
     const responseObject = { id, created, username };
 
