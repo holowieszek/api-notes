@@ -20,8 +20,7 @@ export class ValidationPipe implements PipeTransform<any> {
     const parsedErrors = this.formatErrors(errors);
 
     if (errors.length > 0) {
-      // throw new HttpException(`Validation failed: ${this.formatErrors(errors)}`, HttpStatus.UNPROCESSABLE_ENTITY);
-      throw new HttpException(parsedErrors, 200);
+      throw new HttpException(parsedErrors, HttpStatus.UNPROCESSABLE_ENTITY);
     }
     return value;
   }
@@ -32,8 +31,8 @@ export class ValidationPipe implements PipeTransform<any> {
   }
 
   private formatErrors(errors: any[]) {
-    const parsedErrors: any = []
-    errors.map((error, index) => {
+    const parsedErrors = []
+    errors.map(error => {
       for (let property in error.constraints) {
         parsedErrors.push({
             [error.property]: error.constraints[property]
