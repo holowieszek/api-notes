@@ -19,7 +19,7 @@ export class UserService {
       throw new HttpException('This user exists!', HttpStatus.BAD_REQUEST);
     }
 
-    user = await this.userRepository.save(data);
+    user = await this.userRepository.create(data);
     await this.userRepository.save(user);
 
     return user.toResponseObject();
