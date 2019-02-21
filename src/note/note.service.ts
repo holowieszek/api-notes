@@ -13,7 +13,12 @@ export class NoteService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>
   ) {}
-  
+    
+  async showAll(userId: string) {
+    const note = await this.noteRepository.find({ where: { author: userId }});
+    return note;
+    
+  }
   async create(userId: string, data: NoteDTO) {
     const user = await this.userRepository.findOne({ where: { id: userId }});
     const note = await this.noteRepository.create({ ...data, author: user });
