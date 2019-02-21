@@ -35,4 +35,14 @@ export class NoteService {
     await this.noteRepository.save(note);
     return note.toResponseObject();
   }
+
+  async destroy(userId: string, noteId: string) {
+    const note = await this.noteRepository.findOne({ where: { author: userId, id: noteId }});
+
+    if (!note) {
+      throw new HttpException('Note not found!', HttpStatus.BAD_REQUEST);
+    }
+
+    return this.noteRepository.delete(noteId);
+  }
 }

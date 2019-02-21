@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get, Param, Delete } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { AuthGuard } from 'src/common/auth.guard';
 import { NoteDTO } from './note.dto';
@@ -25,7 +25,12 @@ export class NoteController {
   @Post('create')
   @UseGuards(AuthGuard)
   create(@User('id') user: string, @Body() data: NoteDTO) {
-    console.log(user);
     return this.noteService.create(user, data);
+  }
+
+  @Delete('/:id')
+  @UseGuards(AuthGuard)
+  destroy(@User('id') user: string, @Param('id') id: string) {
+    return this.noteService.destroy(user, id);
   }
 }
