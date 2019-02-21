@@ -11,6 +11,17 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>
   ) {}
 
+  async login(data: UserDTO) {
+    const { username, password } = data;
+    const user = await this.userRepository.findOne({ where: { username }});
+
+    if (!user || !(await user.comparePassword(password))) {
+      throw new HttpException('Invalid username or password', HttpStatus.BAD_REQUEST);
+    } else {
+      return 'git';
+    }
+  }
+
   async register(data: UserDTO): Promise<UserRO> {
     const { username } = data;
     let user = await this.userRepository.findOne({ where: { username }});
