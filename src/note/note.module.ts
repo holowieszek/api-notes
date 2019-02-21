@@ -3,15 +3,14 @@ import { NoteService } from './note.service';
 import { NoteController } from './note.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NoteEntity } from './note.entity';
-import { AuthGuard } from 'src/common/auth.guard';
+import { UserEntity } from 'src/user/user.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([NoteEntity])
+    TypeOrmModule.forFeature([NoteEntity, UserEntity])
   ],
   providers: [
-    NoteService,
-    // AuthGuard
+    NoteService
   ],
   controllers: [NoteController]
 })
