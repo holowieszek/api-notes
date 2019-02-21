@@ -6,11 +6,13 @@ import { LoggingInterceptor } from './common/logging.interceptor';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpErrorFilter } from './common/http-error.fitler';
+import { NoteModule } from './note/note.module';
 
 @Module({
   imports: [
     UserModule,
-    TypeOrmModule.forRoot()
+    TypeOrmModule.forRoot(),
+    NoteModule
   ],
   controllers: [AppController],
   providers: [
