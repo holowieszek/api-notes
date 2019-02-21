@@ -1,6 +1,5 @@
-import { Controller, Post, Body, UseGuards, Get, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Delete, Put } from '@nestjs/common';
 import { NoteService } from './note.service';
-import { AuthGuard } from 'src/common/auth.guard';
 import { NoteDTO } from './note.dto';
 import { User } from 'src/user/user.decorator';
 

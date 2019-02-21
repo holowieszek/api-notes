@@ -1,4 +1,4 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { NoteController } from './note.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
