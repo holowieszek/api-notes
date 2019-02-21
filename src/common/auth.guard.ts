@@ -13,12 +13,12 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
-    request.user = await this.valdiateToken(token);
+    request.user = await this.validateToken(token);
     return true;
   }
 
   async validateToken(auth: string) {
-    if (auth.split[' '][0] !== 'Bearer') {
+    if (auth.split(' ')[0] !== 'Bearer') {
       throw new HttpException('Invalid token', HttpStatus.FORBIDDEN);
     }
 
