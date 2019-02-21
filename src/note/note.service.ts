@@ -15,6 +15,12 @@ export class NoteService {
   ) {}
     
   async showAll(userId: string) {
+    const user = await this.userRepository.findOne({ where: { id: userId }});
+
+    if (!user) {
+      throw new HttpException('User doesn\'t exists!', HttpStatus.FORBIDDEN);
+    }
+    
     return await this.noteRepository.find({ where: { author: userId }});
   }
 
