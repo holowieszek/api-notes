@@ -16,12 +16,12 @@ export class UserService {
     let user = await this.userRepository.findOne({ where: { username }});
 
     if (user) {
-      // return 'This users exists!';
       throw new HttpException('This user exists!', HttpStatus.BAD_REQUEST);
     }
 
     user = await this.userRepository.save(data);
+    await this.userRepository.save(user);
 
-    return user;
+    return user.toResponseObject();
   }
 }
