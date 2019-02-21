@@ -10,7 +10,7 @@ export class UserController {
 
   @Post('login')
   login(@Body() data: UserDTO) {
-    return data;
+    return this.userService.login(data);
   }
 
   @Post('register')
