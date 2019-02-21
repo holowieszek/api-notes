@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { AuthGuard } from 'src/common/auth.guard';
 import { NoteDTO } from './note.dto';
@@ -10,6 +10,12 @@ export class NoteController {
     private readonly noteService: NoteService
   ) {}
   
+  @Get('/')
+  @UseGuards(AuthGuard)
+  showAll(@User('id') user) {
+    return this.noteService.showAll(user);
+  }
+
   @Post('create')
   @UseGuards(AuthGuard)
   create(@User('id') user, @Body() data: NoteDTO) {
