@@ -11,31 +11,26 @@ export class NoteController {
   ) {}
   
   @Get('/')
-  @UseGuards(AuthGuard)
   showAll(@User('id') user: string) {
     return this.noteService.showAll(user);
   }
 
   @Get('/:id')
-  @UseGuards(AuthGuard)
   showById(@User('id') user: string, @Param('id') noteId: string) {
     return this.noteService.showById(user, noteId);
   }
 
-  @Post('create')
-  @UseGuards(AuthGuard)
+  @Post('/create')
   create(@User('id') user: string, @Body() data: NoteDTO) {
     return this.noteService.create(user, data);
   }
 
-  @Put('/:id')
-  @UseGuards(AuthGuard)
+  @Put('/:id/update')
   update(@User('id') user: string, @Param('id') noteId: string, @Body() data: NoteDTO) {
     return this.noteService.update(user, noteId, data);
   }
 
-  @Delete('/:id')
-  @UseGuards(AuthGuard)
+  @Delete('/:id/delete')
   destroy(@User('id') user: string, @Param('id') id: string) {
     return this.noteService.destroy(user, id);
   }
