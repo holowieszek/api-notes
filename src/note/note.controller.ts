@@ -1,8 +1,10 @@
-import { Controller, Post, Body, Get, Param, Delete, Put, UsePipes, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Delete, Put, UseGuards, UseInterceptors, FilesInterceptor, UploadedFiles, FileInterceptor } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { NoteDTO } from './note.dto';
 import { User } from 'src/user/user.decorator';
 import { AuthGuard } from 'src/common/auth.guard';
+import { multerOptions } from 'src/config/multer.config';
+
 
 @Controller('api/notes')
 export class NoteController {
@@ -24,8 +26,9 @@ export class NoteController {
 
   @Post('/create')
   @UseGuards(AuthGuard)
-  create(@User('id') user: string, @Body() data: NoteDTO) {
-    return this.noteService.create(user, data);
+  @UseInterceptors(FilesInterceptor('file', 5 , multerOptions))
+  create(@User('id') user: string, @UploadedFiles() files, @Body() data: NoteDTO) {
+    return this.noteService.create(user, files, data);
   }
 
   @Put('/:id/update')
