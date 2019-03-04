@@ -28,7 +28,7 @@ export class NoteService {
   }
 
   async showById(userId: string, noteId: string) {
-    const note = await this.noteRepository.findOne({ where: { author: userId, id: noteId }});
+    const note = await this.noteRepository.findOne({ where: { author: userId, id: noteId }, relations: ['files']});
 
     if (!note) {
       throw new HttpException('Note not found!', HttpStatus.BAD_REQUEST);
