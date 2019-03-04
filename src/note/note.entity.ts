@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, OneToMany, JoinTable, ManyToMany } from "typeorm";
 import { UserEntity } from "src/user/user.entity";
 import { FileEntity } from "src/upload/upload.entity";
 
@@ -22,7 +22,7 @@ export class NoteEntity {
   @ManyToOne(type => UserEntity, author => author.notes)
   author: UserEntity;
 
-  @OneToMany(type => FileEntity, file => file.id)
+  @OneToMany(type => FileEntity, files => files.note)
   files: FileEntity[];
 
   toResponseObject() {
