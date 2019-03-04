@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, OneToMany, JoinTable, ManyToMany } from "typeorm";
 import { UserEntity } from "src/user/user.entity";
+import { FileEntity } from "src/upload/upload.entity";
 
 @Entity('notes')
 export class NoteEntity {
@@ -20,6 +21,9 @@ export class NoteEntity {
 
   @ManyToOne(type => UserEntity, author => author.notes)
   author: UserEntity;
+
+  @OneToMany(type => FileEntity, files => files.note)
+  files: FileEntity[];
 
   toResponseObject() {
     const { id, title, description, created, updated } = this;
