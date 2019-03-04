@@ -4,6 +4,7 @@ import { NoteEntity } from './note.entity';
 import { Repository } from 'typeorm';
 import { NoteDTO } from './note.dto';
 import { UserEntity } from 'src/user/user.entity';
+import { FileEntity } from 'src/upload/upload.entity';
 
 @Injectable()
 export class NoteService {
@@ -11,7 +12,9 @@ export class NoteService {
     @InjectRepository(NoteEntity)
     private readonly noteRepository: Repository<NoteEntity>,
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(FileEntity)
+    private readonly fileRepository: Repository<FileEntity>
   ) {}
     
   async showAll(userId: string) {
