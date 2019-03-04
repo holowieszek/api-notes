@@ -37,11 +37,19 @@ export class NoteService {
     return note;
   }
 
-  async create(userId: string, data: NoteDTO) {
+  async create(userId: string, files, data: NoteDTO) {
+
     const user = await this.userRepository.findOne({ where: { id: userId }});
     const note = await this.noteRepository.create({ ...data, author: user });
 
     await this.noteRepository.save(note);
+
+    files.forEach(async file => {
+      const { location, originalname } = file;
+      const saveFile = await this.fileRepository.create({ location, originalname, note });
+      await this.fileRepository.save(saveFile);
+    });
+
     return note.toResponseObject();
   }
 
