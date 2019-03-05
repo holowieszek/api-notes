@@ -44,11 +44,14 @@ export class NoteService {
 
     await this.noteRepository.save(note);
 
-    files.forEach(async file => {
-      const { location, originalname } = file;
-      const saveFile = await this.fileRepository.create({ location, originalname, note });
-      await this.fileRepository.save(saveFile);
-    });
+    if (files) {
+      files.forEach(async file => {
+        const { location, originalname } = file;
+        const saveFile = await this.fileRepository.create({ location, originalname, note });
+        await this.fileRepository.save(saveFile);
+      });
+    }
+    
 
     return note.toResponseObject();
   }
