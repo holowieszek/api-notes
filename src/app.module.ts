@@ -5,7 +5,7 @@ import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
 import { LoggingInterceptor } from './common/logging.interceptor';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { HttpErrorFilter } from './common/http-error.fitler';
+import { HttpErrorFilter } from './common/http-error.filter';
 import { NoteModule } from './note/note.module';
 import { UploadModule } from './upload/upload.module';
 
